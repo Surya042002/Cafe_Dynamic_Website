@@ -3,17 +3,17 @@ version: 2.1
 jobs:
   build-images:
     docker:
-      - image: circleci/python:3.8  # Use an image that includes Docker
+      - image: circleci/python:3.8
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.7  # Adjust Docker version as needed
+          version: 20.10.7
           docker_layer_caching: true
       - run:
           name: Build Docker images
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker build -t sreedocker123/mompopcafeapp:circleci ./mompopcafe
+            docker build -t sreedocker123/mompopcafeapp:circleci ./mompopcafeapp
             docker build -t sreedocker123/mompopdb:circleci ./mompopdb
       - persist_to_workspace:
           root: .
@@ -22,12 +22,8 @@ jobs:
 
   push-images:
     docker:
-      - image: circleci/python:3.8  # Use an image that includes Docker
+      - image: circleci/python:3.8
     steps:
-      - checkout
-      - setup_remote_docker:
-          version: 20.10.7  # Adjust Docker version as needed
-          docker_layer_caching: true
       - attach_workspace:
           at: /tmp/docker-images
       - run:
