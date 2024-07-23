@@ -13,8 +13,8 @@ jobs:
           name: Build Docker images
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker build -t sreedocker123/cafeweb:latest ./cafeweb
-            docker build -t sreedocker123/mysql:latest ./mysql
+            docker build -t sreedocker123/mompopcafeapp:circleci ./mompopcafe
+            docker build -t sreedocker123/mompopdb:circleci ./mompopdb
       - persist_to_workspace:
           root: .
           paths:
@@ -34,8 +34,8 @@ jobs:
           name: Push Docker images
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push sreedocker123/cafeweb:latest
-            docker push sreedocker123/mysql:latest
+            docker push sreedocker123/mompopcafeapp:circleci
+            docker push sreedocker123/mompopdb:circleci
 
 workflows:
   version: 2
